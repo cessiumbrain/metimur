@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Screens/Login";
 import Signup from "./Screens/SignUp";
 import Profile from "./Screens/Profile";
+import TrackAnswers from "./Screens/TrackAnswers";
+import Questions from "./Screens/Questions";
 
 const Stack = createNativeStackNavigator();
 export const supabase = createClient(
@@ -63,8 +65,10 @@ export default function App() {
         screenOptions={{ headerShown: false }}
         initialRouteName="profile"
       >
+        <Stack.Screen name="track-answers" component={TrackAnswers}></Stack.Screen>
         <Stack.Screen name="profile"
          component={Profile}></Stack.Screen>
+         <Stack.Screen name="questions" component={Questions}></Stack.Screen>
 
       </Stack.Navigator>
     </NavigationContainer>

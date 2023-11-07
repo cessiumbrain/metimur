@@ -2,17 +2,20 @@ import { View, Text, Pressable } from "react-native";
 import { styles } from "../styles";
 import { useContext, useEffect, useState } from "react";
 import answerTypes from "../AnswerTypes";
-import { QuestionIdxContext } from "../contexts";
+import { QuestionIdxContext, QuestionsContext } from "../contexts";
 
 function Questions({navigation, route : {params}}) {
-    console.log(params)
+    
   const [selectedAnswer, setSelectedAnswer] = useState(null)
 
   const [error, setError] = useState()
 
   const questionIdx = useContext(QuestionIdxContext)
 
-  const currentQuestion = params.questions[questionIdx]
+  const questions = useContext(QuestionsContext)
+  const currentQuestion = questions[questionIdx]
+  
+  console.log('Questions:', params, questions)
   return (
     
     
@@ -67,7 +70,16 @@ function Questions({navigation, route : {params}}) {
         style={styles.button}>
         <Text>Next</Text>
       </Pressable>
-      <Pressable style={styles.button}>
+      <Pressable 
+        style={styles.button}
+        onPress={()=>{
+            if(questionIdx==0){
+                navigation.navigate('profile')
+            } else {
+                params.setQuestionIdx(questionIdx-1)
+            }
+        }}
+        >
         <Text>Back</Text>
       </Pressable>
     </View>

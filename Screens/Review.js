@@ -1,8 +1,13 @@
 import {Pressable, Text, View} from 'react-native'
 import { styles } from '../styles'
+import {supabase} from '../App.js'
+import { UserContext } from '../contexts.js'
+import { useContext } from 'react'
+
 
 function Review({route: {params}}){
-    console.log(params)
+    const user = useContext(UserContext)
+    console.log(params, user)
     return(
         <View style={styles.reviewView}>
             {params.questions.map((question, idx)=>{
@@ -13,7 +18,23 @@ function Review({route: {params}}){
                     </View>
                 )
             })}
-            <Pressable style={styles.button}>
+            <Pressable 
+            onPress={async ()=>{
+                let answersObj={}
+                for(let i=0; i<params.currentAnswers.length; i++){
+                    answersObj[i] = params.currentAnswers[i]
+                }
+                
+                const { data, error } = await supabase
+                .from('Answers')
+                .insert([
+                { answers: answersObj, user_id: 'c6851b95-a8e6-4e87-a1ae-d5db4239307b' },
+                ])
+                .select()
+                console.log(data,error)
+
+                            }}
+            style={styles.button}>
                 <Text>Submit</Text>
             </Pressable>
         </View>

@@ -21,7 +21,7 @@ function Profile({route : {params: {setQuestions, setAnswerHistory}}, navigation
         .from("Answers")
         .select("*")
         .eq("user_id", "c6851b95-a8e6-4e87-a1ae-d5db4239307b");
-
+      setAnswerHistory(Answers)
       console.log("answers", Answers, answersError);
     };
     fetch()
@@ -37,7 +37,7 @@ function Profile({route : {params: {setQuestions, setAnswerHistory}}, navigation
       </Pressable>
       <Pressable
         onPress={() => {
-          props.navigation.navigate("track-answers");
+          navigation.navigate("track-answers");
         }}
         style={styles.button}
       >

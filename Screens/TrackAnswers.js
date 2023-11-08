@@ -1,8 +1,12 @@
 import { View } from "react-native-web";
+import { styles } from "../styles";
 
-function TrackAnswers(){
+function TrackAnswers({route: {params}}){
+    console.log(params)
 return(
-    <View></View>
+    <View style={styles.containerView}>
+        {}
+    </View>
 )
 }
 

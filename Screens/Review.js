@@ -5,7 +5,7 @@ import { UserContext } from '../contexts.js'
 import { useContext } from 'react'
 
 
-function Review({route: {params}}){
+function Review({navigation, route: {params}}){
     const user = useContext(UserContext)
     console.log(params, user)
     return(
@@ -20,6 +20,7 @@ function Review({route: {params}}){
             })}
             <Pressable 
             onPress={async ()=>{
+                //create JSON object
                 let answersObj={}
                 for(let i=0; i<params.currentAnswers.length; i++){
                     answersObj[i] = params.currentAnswers[i]
@@ -32,10 +33,17 @@ function Review({route: {params}}){
                 ])
                 .select()
                 console.log(data,error)
-
+                navigation.navigate('profile')
                             }}
             style={styles.button}>
                 <Text>Submit</Text>
+            </Pressable>
+            <Pressable 
+            style={styles.button}
+            onPress={()=>{
+                navigation.navigate('questions')
+            }}>
+                <Text>Back</Text>
             </Pressable>
         </View>
        

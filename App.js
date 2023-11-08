@@ -11,6 +11,7 @@ import Profile from "./Screens/Profile";
 import TrackAnswers from "./Screens/TrackAnswers";
 import Questions from "./Screens/Questions";
 import Review from "./Screens/Review";
+
 import { QuestionIdxContext, UserContext, QuestionsContext } from "./contexts";
 
 const Stack = createNativeStackNavigator();
@@ -27,8 +28,8 @@ export default function App() {
   const [answerHistory, setAnswerHistory] = useState()
 
   useEffect(() => {
-    console.log("user", user);
-  }, [user]);
+   
+  });
 
   async function login(email, password) {
     //submit auth
@@ -58,6 +59,9 @@ export default function App() {
               >
                 <Stack.Screen
                   name="track-answers"
+                  initialParams={{
+                    "answerHistory": answerHistory
+                  }}
                   component={TrackAnswers}
                 ></Stack.Screen>
                 <Stack.Screen
@@ -106,6 +110,7 @@ export default function App() {
             name="login"
             component={Login}
           ></Stack.Screen>
+          
           <Stack.Screen
             name="signup"
             component={Signup}

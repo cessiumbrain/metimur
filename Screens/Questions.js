@@ -14,8 +14,7 @@ function Questions({navigation, route : {params}}) {
 
   const questions = useContext(QuestionsContext)
   const currentQuestion = questions[questionIdx]
-  
-  console.log('Questions:', params, questions)
+
   return (
     
     

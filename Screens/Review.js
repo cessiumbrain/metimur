@@ -31,7 +31,7 @@ function Review({navigation, route: {params}}){
                 .insert([
                 { answers: answersObj, user_id: 'c6851b95-a8e6-4e87-a1ae-d5db4239307b' },
                 ])
-                .select()
+                .select('*')
                 console.log(data,error)
                 navigation.navigate('profile')
                             }}

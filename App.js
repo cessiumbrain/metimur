@@ -1,5 +1,3 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { SUPABASE_KEY } from "./secrets";
@@ -14,6 +12,8 @@ import Review from "./Screens/Review";
 
 import { QuestionIdxContext, UserContext, QuestionsContext } from "./contexts";
 
+import dummyAuth from "./dummyAuth";
+
 const Stack = createNativeStackNavigator();
 export const supabase = createClient(
   "https://epxikhdeulznrxllkhlo.supabase.co",
@@ -23,7 +23,7 @@ export const supabase = createClient(
 export default function App() {
   const [questionIdx, setQuestionIdx] = useState(0);
   const [questions, setQuestions] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(dummyAuth);
   const [currentAnswers, setCurrentAnswers] = useState([]);
   const [answerHistory, setAnswerHistory] = useState()
 
@@ -39,10 +39,10 @@ export default function App() {
         email: email,
         password: password,
       });
-    console.log("auth", authData, authError);
+    console.log("auth", authData.user, authError);
     //set user state
     if (authData) {
-      setUser(authData);
+      setUser(authData.user);
     }
   }
 
@@ -60,7 +60,8 @@ export default function App() {
                 <Stack.Screen
                   name="track-answers"
                   initialParams={{
-                    "answerHistory": answerHistory
+                    "answerHistory": answerHistory,
+                    "questions": questions
                   }}
                   component={TrackAnswers}
                 ></Stack.Screen>
